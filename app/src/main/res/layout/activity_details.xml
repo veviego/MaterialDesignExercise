@@ -7,6 +7,7 @@
         android:id="@+id/ivProfile"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
+        android:transitionName="profile"
         android:layout_height="@dimen/contact_detail_image_height" />
 
     <RelativeLayout
@@ -19,11 +20,13 @@
         <View
             android:id="@+id/vPalette"
             android:layout_width="match_parent"
+            android:transitionName="profile"
             android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_centerInParent="true"
+            android:transitionName="profile"
             android:textSize="@dimen/contact_text_size"
             android:textColor="@android:color/black"
             android:layout_width="wrap_content"
@@ -40,5 +43,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+
+    <FrameLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ivProfile"
+        android:layout_marginTop="-50dp">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_call"
+            app:fabSize="normal" />
+    </FrameLayout>
 </RelativeLayout>
 

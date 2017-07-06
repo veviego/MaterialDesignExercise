@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,8 +57,17 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.VH> {
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         Palette palette = Palette.from(resource).generate();
                         Palette.Swatch brightColor = palette.getVibrantSwatch();
-                        holder.vPalette.setBackgroundColor(brightColor.getRgb());
+                        if (brightColor != null) {
+                            holder.vPalette.setBackgroundColor(brightColor.getRgb());
+                            holder.tvName.setTextColor(brightColor.getTitleTextColor());
+                        } else {
 
+                            Palette.Swatch otherColor = palette.getDominantSwatch();
+                            holder.vPalette.setBackgroundColor(otherColor.getRgb());
+                            holder.tvName.setTextColor(otherColor.getTitleTextColor());
+                        }
+
+                        holder.ivProfile.setImageBitmap(resource);
                     }
                 });
     }
@@ -92,8 +102,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.VH> {
 
                         // Pass contact object in the bundle and populate details activity.
                         i.putExtra(DetailsActivity.EXTRA_CONTACT, contact);
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation((Activity) context, (View)vPalette, "profile");
 
-                        ((Activity) context).startActivity(i);
+                        ((Activity) context).startActivity(i, options.toBundle());
                     }
                 }
             });
